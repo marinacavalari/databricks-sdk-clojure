@@ -5,4 +5,3 @@
                                 :uri         "/api/2.0/clusters/create"}
    :clusters/list              {:method      :get
                                 :uri         "/api/2.0/clusters/list"}})
-

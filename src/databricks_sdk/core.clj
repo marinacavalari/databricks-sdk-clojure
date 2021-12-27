@@ -1,8 +1,8 @@
-(ns databricks-sdk.core)
+(ns databricks-sdk.core
+  (:require [databricks-sdk.impl.databricks :as impl]))
 
-(defn foo
-  "I don't do a whole lot."
-  [x]
-  (println x "Hello, World!"))
+(defn create-cluster! [{:keys [token host payload timeout]}]
+  (impl/request! host token timeout :clusters/create {:payload payload}))
 
-
+(defn list-clusters [token host timeout]
+  (impl/request! host token timeout :clusters/list {}))

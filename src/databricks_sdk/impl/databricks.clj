@@ -3,18 +3,17 @@
             [selmer.parser :as parser]
             [org.httpkit.sni-client :as sni-client]))
 
-(defn base-request [host api-token]
+(defn base-request [host api-token timeout]
   {:host host
-   :timeout (* 30 1000)
+   :timeout timeout
    :headers {"Authorization" (str "Bearer " api-token)}})
 
 (defn with-full-url [{:keys [uri host] :as request-map} context]
-  (let [resolved-uri (parser/render uri context)]
+  (let [resolved-uri (apply format uri (:path-params context))]
     (assoc request-map :url (str host resolved-uri))))
-
-(defn connect-api!
-  [host api-token endpoint context]
-  (let [base-request-raw    (merge (base-request host api-token))
+(defn request!
+  [host api-token timeout endpoint context]
+  (let [base-request-raw (merge (base-request host api-token timeout))
         endpoint-request (get endpoints/request endpoint {})
         request-map-raw  (merge base-request-raw endpoint-request context)
         request-map      (with-full-url request-map-raw context)
@@ -23,9 +22,3 @@
         sni-client/req!
         :body
         response)))
-
-(defn create-cluster! [token host payload]
-  (connect-api! host token :clusters/create {:payload payload}))
-
-(defn list-clusters [token host]
-  (connect-api! host token :clusters/list {}))
