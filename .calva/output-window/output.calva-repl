@@ -15,54 +15,157 @@
 ;   - `alt+up` and `alt+down` traverse up and down the REPL command history
 ;      when the cursor is after the last contents at the prompt
 ;   - Clojure lines in stack traces are peekable and clickable.
-clj꞉databricks-sdk-clojure.main꞉> 
+clj꞉databricks-sdk-clojure.main꞉>  ; Use `alt+enter` to evaluate
 ; Jack-in done.
 clj꞉databricks-sdk-clojure.main꞉> 
+; Syntax error compiling at (src/databricks_sdk/impl/databricks.clj:11:1).
+; Unable to resolve symbol: defn in this context
+clj꞉databricks-sdk.impl.databricks꞉> 
+; Syntax error compiling at (src/databricks_sdk/impl/databricks.clj:23:33).
+; Unable to resolve symbol: base-request in this context
+clj꞉databricks-sdk.impl.databricks꞉> 
+#'databricks-sdk.impl.databricks/request2!
+clj꞉databricks-sdk.impl.databricks꞉> 
+; Execution error (NullPointerException) at java.net.URI$Parser/parse (URI.java:3104).
+; null
+clj꞉databricks-sdk.impl.databricks꞉> 
+; Execution error (NullPointerException) at java.net.URI$Parser/parse (URI.java:3104).
+; null
+clj꞉databricks-sdk.impl.databricks꞉> 
+; Syntax error compiling at (src/databricks_sdk/impl/databricks.clj:12:14).
+; Unable to resolve symbol: host in this context
+clj꞉databricks-sdk.impl.databricks꞉> 
+#'databricks-sdk.impl.databricks/request2!
+clj꞉databricks-sdk.impl.databricks꞉> 
+; Execution error (NullPointerException) at java.net.URI$Parser/parse (URI.java:3104).
+; null
+clj꞉databricks-sdk.impl.databricks꞉> 
+#'databricks-sdk.impl.databricks/request2!
+clj꞉databricks-sdk.impl.databricks꞉> 
+; Execution error (ClassCastException) at org.httpkit.client/coerce-req (client.clj:69).
+; class java.lang.String cannot be cast to class clojure.lang.Keyword (java.lang.String is in module java.base of loader 'bootstrap'; clojure.lang.Keyword is in unnamed module of loader 'app')
+clj꞉databricks-sdk.impl.databricks꞉> 
+#'databricks-sdk.impl.databricks/request2!
+clj꞉databricks-sdk.impl.databricks꞉> 
+; Execution error (NullPointerException) at org.httpkit.client.HttpClient/encode (HttpClient.java:386).
+; null
+clj꞉databricks-sdk.impl.databricks꞉> 
+org.httpkit.client.HttpClient/encode (HttpClient.java:386)
+org.httpkit.client.HttpClient/exec (HttpClient.java:338)
+org.httpkit.client/request (client.clj:292)
+org.httpkit.client/request (client.clj:180)
+databricks-sdk.impl.databricks/request2! (form-init502668179734858496.clj:12)
+databricks-sdk.impl.databricks/request2! (form-init502668179734858496.clj:11)
+databricks-sdk.impl.databricks/eval7715 (form-init502668179734858496.clj:20)
+clojure.lang.Compiler/eval (Compiler.java:7181)
+clojure.core/eval (core.clj:3202)
+clojure.core/eval (core.clj:3198)
+nrepl.middleware.interruptible-eval/evaluate (interruptible_eval.clj:87)
+clojure.core/apply (core.clj:667)
+clojure.core/with-bindings* (core.clj:1977)
+nrepl.middleware.interruptible-eval/evaluate (interruptible_eval.clj:87)
+clojure.main/repl (main.clj:437)
+clojure.main/repl (main.clj:458)
+clojure.main/repl (main.clj:368)
+nrepl.middleware.interruptible-eval/evaluate (interruptible_eval.clj:84)
+nrepl.middleware.interruptible-eval/evaluate (interruptible_eval.clj:56)
+nrepl.middleware.interruptible-eval/interruptible-eval (interruptible_eval.clj:152)
+nrepl.middleware.session/session-exec (session.clj:202)
+nrepl.middleware.session/session-exec (session.clj:201)
+java.lang.Thread/run (Thread.java:834)
+clj꞉databricks-sdk.impl.databricks꞉> 
+#'databricks-sdk.impl.databricks/request2!
+clj꞉databricks-sdk.impl.databricks꞉> 
+#org.httpkit.client/deadlock-guard/reify--5570[{:status :pending, :val nil} 0x6c86f6f2]
+clj꞉databricks-sdk.impl.databricks꞉> 
+acabou
 nil
 clj꞉databricks-sdk.impl.databricks꞉> 
-"/some/:foo/bar"
+#future[{:status :pending, :val nil} 0x1de17f91]
 clj꞉databricks-sdk.impl.databricks꞉> 
-"/some/{foo}/bar"
+acabou
+acabou
+200
 clj꞉databricks-sdk.impl.databricks꞉> 
-"/some/${foo}/bar"
+acabou
+200
 clj꞉databricks-sdk.impl.databricks꞉> 
-"/some/2/bar"
+#future[{:status :pending, :val nil} 0x737848a4]
 clj꞉databricks-sdk.impl.databricks꞉> 
-"/some/2/bar"
+acabou
+acabou
+200
 clj꞉databricks-sdk.impl.databricks꞉> 
-"/some/2/bar"
-clj꞉databricks-sdk.impl.databricks꞉> 
-; Syntax error compiling at (src/databricks_sdk/impl/databricks.clj:24:1).
-; Unable to resolve symbol: foo in this context
-clj꞉databricks-sdk.impl.databricks꞉> 
-#'databricks-sdk.core/foo
-clj꞉databricks-sdk.core꞉> 
-; Syntax error compiling at (src/databricks_sdk/impl/databricks.clj:24:1).
-; Unable to resolve symbol: foo in this context
-clj꞉databricks-sdk.impl.databricks꞉> 
-; Syntax error compiling at (src/databricks_sdk/impl/databricks.clj:24:1).
-; Unable to resolve symbol: foo in this context
-clj꞉databricks-sdk.impl.databricks꞉> 
-#'databricks-sdk.impl.databricks/foo
-clj꞉databricks-sdk.impl.databricks꞉> 
-"/bla/pate/foo"
-clj꞉databricks-sdk.impl.databricks꞉> 
-; Execution error (MissingFormatArgumentException) at java.util.Formatter/format (Formatter.java:2672).
-; Format specifier '%s'
-clj꞉databricks-sdk.impl.databricks꞉> 
-pate
+acabou
+200
 nil
 clj꞉databricks-sdk.impl.databricks꞉> 
-pate asd
+#future[{:status :pending, :val nil} 0x7c87b3fc]
 nil
 clj꞉databricks-sdk.impl.databricks꞉> 
-pate a s d
+acabou
+acabou
+200
 nil
 clj꞉databricks-sdk.impl.databricks꞉> 
-pate asd
+#'databricks-sdk.impl.databricks/request2!
+clj꞉databricks-sdk.impl.databricks꞉> 
 nil
 clj꞉databricks-sdk.impl.databricks꞉> 
-"/moises/burra"
+; Syntax error compiling at (src/databricks_sdk/impl/databricks.clj:12:13).
+; Unable to resolve symbol: host in this context
 clj꞉databricks-sdk.impl.databricks꞉> 
-"/moises"
+#'databricks-sdk.impl.databricks/request2!
+clj꞉databricks-sdk.impl.databricks꞉> 
+nil
+clj꞉databricks-sdk.impl.databricks꞉> 
+#'databricks-sdk.impl.databricks/request2!
+clj꞉databricks-sdk.impl.databricks꞉> 
+#org.httpkit.client/deadlock-guard/reify--5570[{:status :pending, :val nil} 0x5e06f99d]
+clj꞉databricks-sdk.impl.databricks꞉> 
+#'databricks-sdk.impl.databricks/request2!
+clj꞉databricks-sdk.impl.databricks꞉> 
+{:opts {:url "http://pate.com/asd", :method :get, :timeout 1, :headers {"Authorization" "Bearer ad"}}, :error #error {
+ :cause "idle timeout: 1ms"
+ :via
+ [{:type org.httpkit.client.TimeoutException
+   :message "idle timeout: 1ms"
+   :at [org.httpkit.client.HttpClient clearTimeout "HttpClient.java" 136]}]
+ :trace
+ [[org.httpkit.client.HttpClient clearTimeout "HttpClient.java" 136]
+  [org.httpkit.client.HttpClient run "HttpClient.java" 501]
+  [java.lang.Thread run "Thread.java" 834]]}}
+clj꞉databricks-sdk.impl.databricks꞉> 
+#'databricks-sdk.impl.databricks/request2!
+clj꞉databricks-sdk.impl.databricks꞉> 
+#error {
+ :cause "connect timeout: 1ms"
+ :via
+ [{:type org.httpkit.client.TimeoutException
+   :message "connect timeout: 1ms"
+   :at [org.httpkit.client.HttpClient clearTimeout "HttpClient.java" 136]}]
+ :trace
+ [[org.httpkit.client.HttpClient clearTimeout "HttpClient.java" 136]
+  [org.httpkit.client.HttpClient run "HttpClient.java" 501]
+  [java.lang.Thread run "Thread.java" 834]]}
+clj꞉databricks-sdk.impl.databricks꞉> 
+#'databricks-sdk.impl.databricks/request2!
+clj꞉databricks-sdk.impl.databricks꞉> 
+nil
+clj꞉databricks-sdk.impl.databricks꞉> 
+#'databricks-sdk.impl.databricks/request2!
+clj꞉databricks-sdk.impl.databricks꞉> 
+{:opts {:url "http://ww6.pate.com", :method :get, :timeout 10000, :headers {"Authorization" "Bearer ad"}, :query-params nil, :form-params nil, :trace-redirects ("http://pate.com/asd")}, :body "<!doctype html><html lang=\"en\" data-adblockkey=\"MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBANDrp2lz7AOmADaN8tA50LsWcjLFyQFcb/P2Txc58oYOeILb3vBw7J6f4pamkAQVSQuqYsKx3YzdUHCvbVZvFUsCAwEAAQ==_fu4YIJOpftiIDBedQRRihhK8/3+/I78x3diANBghdyiMDbFG3afPIV0MWTrhkjjfxRIqRXNGeYahRGWsp3lcfA==\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><link rel=\"shortcut icon\" href=\"/favicon.ico\" type=\"image/x-icon\"/><link rel=\"preconnect\" href=\"https://www.google.com\" crossorigin><link rel=\"dns-prefetch\" href=\"https://parking.bodiscdn.com\" crossorigin><link rel=\"dns-prefetch\" href=\"https://fonts.googleapis.com\" crossorigin></head><body><div id=\"target\" style='opacity: 0'></div><script>window.park = \"eyJ1dWlkIjoiZTQ0YmUwZjMtNTUwMS05MTQ3LTQzOGEtN2ZhMTcxZTUzYzM5IiwicGFnZV90aW1lIjoxNjQwNjQ0MzUzLCJwYWdlX3VybCI6Imh0dHA6XC9cL3d3Ni5wYXRlLmNvbVwvIiwicGFnZV9tZXRob2QiOiJHRVQiLCJwYWdlX3JlcXVlc3QiOltdLCJwYWdlX2hlYWRlcnMiOnsiY29udGVudC1sZW5ndGgiOlsiMCJdLCJhY2NlcHQtZW5jb2RpbmciOlsiZ3ppcCwgZGVmbGF0ZSJdLCJ1c2VyLWFnZW50IjpbImh0dHAta2l0XC8yLjAiXSwiaG9zdCI6WyJ3dzYucGF0ZS5jb20iXSwiYXV0aG9yaXphdGlvbiI6WyJCZWFyZXIgYWQiXX0sImhvc3QiOiJ3dzYucGF0ZS5jb20iLCJpcCI6IjE4Ni4yMjAuMTk4LjE2MyJ9\";</script><script src=\"/js/parking.2.75.2.js\"></script></body></html>", :headers {:date "Mon, 27 Dec 2021 22:32:33 GMT", :x-adblock-key "MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBANDrp2lz7AOmADaN8tA50LsWcjLFyQFcb/P2Txc58oYOeILb3vBw7J6f4pamkAQVSQuqYsKx3YzdUHCvbVZvFUsCAwEAAQ==_fu4YIJOpftiIDBedQRRihhK8/3+/I78x3diANBghdyiMDbFG3afPIV0MWTrhkjjfxRIqRXNGeYahRGWsp3lcfA==", :server "openresty", :pragma "no-cache", :expires "Thu, 01 Jan 1970 00:00:01 GMT", :cache-control "no-cache,no-store, must-revalidate,post-check=0, pre-check=0", :content-type "text/html; charset=UTF-8", :content-encoding "gzip", :connection "keep-alive", :transfer-encoding "chunked", :set-cookie "parking_session=e44be0f3-5501-9147-438a-7fa171e53c39; expires=Mon, 27-Dec-2021 22:47:33 GMT; Max-Age=900; path=/; HttpOnly"}, :status 200}
+clj꞉databricks-sdk.impl.databricks꞉> 
+{:opts {:url "http://dummy.restapiexample.com/api/v1/employees", :method :get, :timeout 10000, :headers {"Authorization" "Bearer ad"}}, :body "{\"status\":\"success\",\"data\":[{\"id\":1,\"employee_name\":\"Tiger Nixon\",\"employee_salary\":320800,\"employee_age\":61,\"profile_image\":\"\"},{\"id\":2,\"employee_name\":\"Garrett Winters\",\"employee_salary\":170750,\"employee_age\":63,\"profile_image\":\"\"},{\"id\":3,\"employee_name\":\"Ashton Cox\",\"employee_salary\":86000,\"employee_age\":66,\"profile_image\":\"\"},{\"id\":4,\"employee_name\":\"Cedric Kelly\",\"employee_salary\":433060,\"employee_age\":22,\"profile_image\":\"\"},{\"id\":5,\"employee_name\":\"Airi Satou\",\"employee_salary\":162700,\"employee_age\":33,\"profile_image\":\"\"},{\"id\":6,\"employee_name\":\"Brielle Williamson\",\"employee_salary\":372000,\"employee_age\":61,\"profile_image\":\"\"},{\"id\":7,\"employee_name\":\"Herrod Chandler\",\"employee_salary\":137500,\"employee_age\":59,\"profile_image\":\"\"},{\"id\":8,\"employee_name\":\"Rhona Davidson\",\"employee_salary\":327900,\"employee_age\":55,\"profile_image\":\"\"},{\"id\":9,\"employee_name\":\"Colleen Hurst\",\"employee_salary\":205500,\"employee_age\":39,\"profile_image\":\"\"},{\"id\":10,\"employee_name\":\"Sonya Frost\",\"employee_salary\":103600,\"employee_age\":23,\"profile_image\":\"\"},{\"id\":11,\"employee_name\":\"Jena Gaines\",\"employee_salary\":90560,\"employee_age\":30,\"profile_image\":\"\"},{\"id\":12,\"employee_name\":\"Quinn Flynn\",\"employee_salary\":342000,\"employee_age\":22,\"profile_image\":\"\"},{\"id\":13,\"employee_name\":\"Charde Marshall\",\"employee_salary\":470600,\"employee_age\":36,\"profile_image\":\"\"},{\"id\":14,\"employee_name\":\"Haley Kennedy\",\"employee_salary\":313500,\"employee_age\":43,\"profile_image\":\"\"},{\"id\":15,\"employee_name\":\"Tatyana Fitzpatrick\",\"employee_salary\":385750,\"employee_age\":19,\"profile_image\":\"\"},{\"id\":16,\"employee_name\":\"Michael Silva\",\"employee_salary\":198500,\"employee_age\":66,\"profile_image\":\"\"},{\"id\":17,\"employee_name\":\"Paul Byrd\",\"employee_salary\":725000,\"employee_age\":64,\"profile_image\":\"\"},{\"id\":18,\"employee_name\":\"Gloria Little\",\"employee_salary\":237500,\"employee_age\":59,\"profile_image\":\"\"},{\"id\":19,\"employee_name\":\"Bradley Greer\",\"employee_salary\":132000,\"employee_age\":41,\"profile_image\":\"\"},{\"id\":20,\"employee_name\":\"Dai Rios\",\"employee_salary\":217500,\"employee_age\":35,\"profile_image\":\"\"},{\"id\":21,\"employee_name\":\"Jenette Caldwell\",\"employee_salary\":345000,\"employee_age\":30,\"profile_image\":\"\"},{\"id\":22,\"employee_name\":\"Yuri Berry\",\"employee_salary\":675000,\"employee_age\":40,\"profile_image\":\"\"},{\"id\":23,\"employee_name\":\"Caesar Vance\",\"employee_salary\":106450,\"employee_age\":21,\"profile_image\":\"\"},{\"id\":24,\"employee_name\":\"Doris Wilder\",\"employee_salary\":85600,\"employee_age\":23,\"profile_image\":\"\"}],\"message\":\"Successfully! All records has been fetched.\"}", :headers {:response "200", :x-sol "pub_site", :date "Mon, 27 Dec 2021 22:34:15 GMT", :x-ezoic-cdn "Miss", :x-middleton-display "staticcontent_sol", :host-header "c2hhcmVkLmJsdWVob3N0LmNvbQ==", :x-middleton-response "200", :server "nginx", :vary "Accept-Encoding,Authorization,Accept-Encoding,User-Agent,Origin", :expires "Tue, 27 Dec 2022 22:34:14 GMT", :x-origin-cache-control "no-cache, private", :cache-control "no-cache, private, max-age=31536000", :referrer-policy "", :content-length "631", :content-type "application/json", :x-ratelimit-limit "60", :display "staticcontent_sol", :content-encoding "gzip", :x-ratelimit-remaining "58", :x-server-cache "false"}, :status 200}
+clj꞉databricks-sdk.impl.databricks꞉> 
+#'databricks-sdk.impl.databricks/request2!
+clj꞉databricks-sdk.impl.databricks꞉> 
+429
+clj꞉databricks-sdk.impl.databricks꞉> 
+429
+clj꞉databricks-sdk.impl.databricks꞉> 
+#'databricks-sdk.impl.databricks/request2!
+clj꞉databricks-sdk.impl.databricks꞉> 
+"<!DOCTYPE html>\n<html lang=\"en\">\n    <head>\n        <meta charset=\"utf-8\">\n        <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n\n        <title>Too Many Requests</title>\n\n        <!-- Fonts -->\n        <link rel=\"dns-prefetch\" href=\"//fonts.gstatic.com\">\n        <link href=\"https://fonts.googleapis.com/css?family=Nunito\" rel=\"stylesheet\">\n\n        <!-- Styles -->\n        <style>\n            html, body {\n                background-color: #fff;\n                color: #636b6f;\n                font-family: 'Nunito', sans-serif;\n                font-weight: 100;\n                height: 100vh;\n                margin: 0;\n            }\n\n            .full-height {\n                height: 100vh;\n            }\n\n            .flex-center {\n                align-items: center;\n                display: flex;\n                justify-content: center;\n            }\n\n            .position-ref {\n                position: relative;\n            }\n\n            .code {\n                border-right: 2px solid;\n                font-size: 26px;\n                padding: 0 15px 0 15px;\n                text-align: center;\n            }\n\n            .message {\n                font-size: 18px;\n                text-align: center;\n            }\n        </style>\n    </head>\n    <body>\n        <div class=\"flex-center position-ref full-height\">\n            <div class=\"code\">\n                429            </div>\n\n            <div class=\"message\" style=\"padding: 10px;\">\n                Too Many Requests            </div>\n        </div>\n    </body>\n</html>\n"
 clj꞉databricks-sdk.impl.databricks꞉> 
