@@ -41,3 +41,44 @@
       (assoc :endpoint :clusters/list)
       impl/request!))
 
+(defn edit-cluster!
+  "Edit a specif cluster within a Databricks Account
+   **Input**
+   Must have at least [token timeout host context]
+   - `:token` your databricks token to use the API
+   - `:timeout` the time limit in milliseconds to wait for the response.
+   - `:host` your account host, e.g. `http://abc.cloud.databricks.com`
+   - `:context` is your data to the request, in this case use a cluster information, as below:
+  ```clojure
+     {:cluster_id '1x2e34r5t'
+      :spark_version '7.3.x-scala2.12'
+      :node_type_id 'i3.xlarge'
+      :num_workers 10}
+ ```
+  **Output**
+   {}"
+  [options]
+  (-> options
+      (assoc :endpoint :clusters/edit)
+      impl/request!))
+
+(defn start-cluster!
+  "Start a specif cluster within a Databricks Account
+   **Input**
+   Must have at least [token timeout host context]
+   - `:token` your databricks token to use the API
+   - `:timeout` the time limit in milliseconds to wait for the response.
+   - `:host` your account host, e.g. `http://abc.cloud.databricks.com`
+   - `:context` is your data to the request, in this case use a cluster id information, as below:
+  ```clojure
+     {:cluster_id '1x2e34r5t'}
+ ```
+  **Output**
+   {}"
+  [options]
+  (-> options
+      (assoc :endpoint :clusters/start)
+      impl/request!))
+
+
+
