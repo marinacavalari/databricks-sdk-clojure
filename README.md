@@ -1,23 +1,28 @@
-# databricks-sdk-clojure
+# Databricks-SDK
 
-A Clojure library designed to ... well, that part is up to you.
+A Clojure SDK for Databricks usage, with most used functions.
+This library is a way to do a easier access to the Databricks API 2.0 and its functions as list clusters, create, delete and even more. It will help people to create services to automatize requests and  make some intergrations.
+
+## Installation
+
+```clojure
+:dependencies [[com.github.marinacavalari/databricks-sdk "0.1.0-SNAPSHOT"]]
+```
 
 ## Usage
 
-FIXME
+```clojure
 
-## License
+(ns clojure-sample.core
+  (:require [databricks-sdk.core :as sdk]))
 
-Copyright © 2021 FIXME
+(sdk/list-clusters {:token 1234
+                    :timeout 30000    
+                    :host "http://abc.cloud.databricks.com"
+                    :context  {}})
 
-This program and the accompanying materials are made available under the
-terms of the Eclipse Public License 2.0 which is available at
-http://www.eclipse.org/legal/epl-2.0.
+```
 
-This Source Code may also be made available under the following Secondary
-Licenses when the conditions for such availability set forth in the Eclipse
-Public License, v. 2.0 are satisfied: GNU General Public License as published by
-the Free Software Foundation, either version 2 of the License, or (at your
-option) any later version, with the GNU Classpath Exception which is available
-at https://www.gnu.org/software/classpath/license.html.
-# databricks-sdk-clojure
+## Contribution
+
+Contributions are very welcome, please open an issue or a pull request whenever you may need.
