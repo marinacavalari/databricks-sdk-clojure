@@ -1,5 +1,6 @@
 (ns databricks-sdk.core
-  (:require [databricks-sdk.impl.databricks :as impl]))
+  (:require
+   [databricks-sdk.impl.databricks :as impl]))
 
 (defn create-cluster!
   "Create a new cluster within a Databricks Account
