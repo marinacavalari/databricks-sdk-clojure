@@ -2,32 +2,34 @@
   (:require [databricks-sdk.impl.databricks :as impl]))
 
 (defn create-cluster! 
-  "bla"
-  
+  "Create a new cluster in a determinated Databricks account.
+   Options must have at least [token timeout host context]
+     :token your databricks personal token to use the API
+     :timeout to connect and request
+     :host your account host, it should be something like: http://abc.cloud.databricks.com
+     :context is your data to the request, in this case use a cluster information, as below:
+   {:cluster_name 'my-cluster'
+    :spark_version '7.3.x-scala2.12' 
+    :node_type_id  'i3.xlarge'                               
+    :spark_conf {:spark.speculation true}
+    :aws_attributes {:availability 'SPOT'
+                     :zone_id  'us-west-2a'} 
+    :num_workers 25}
+   And returns a new cluster-id "
   [options]
   (-> options
-      (assoc :endpoint :clusters/list))
-
-
-  (impl/request! token timeout host :clusters/create {:payload payload}))
+      (assoc :endpoint :clusters/list)
+      impl/request!))
 
 (defn list-clusters 
   "List all clusters from a databrick account.
-   
-   
-   
-   *Options*
-   - :token blabla"
+   Options must have at least [token timeout host context]
+     :token your databricks personal token to use the API
+     :timeout to connect and request
+     :host your account host, it should be something like: http://abc.cloud.databricks.com
+   And its returns is the clusters list itself"
   [options]
   (-> options
-      (assoc :endpoint :clusters/list 
-             :context {})
+      (assoc :endpoint :clusters/list)
       impl/request!))
 
-;; old_token = 'dapid7b3065f214e904d53361a1944ec48cf'
-;; new_token = 'dapie65924c185b1ce96948f244abac5b74c'
-
-;; old_host = 'https://dbc-82a233e4-f494.cloud.databricks.com'
-;; new_host = 'https://nubank-e2-staging.cloud.databricks.com'
-
-(def api-token "dapie65924c185b1ce96948f244abac5b74c")
