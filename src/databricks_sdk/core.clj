@@ -17,7 +17,7 @@
       :aws_attributes {:availability 'SPOT'
                        :zone_id  'us-west-2a'}
       :num_workers 25}
- ```
+  ```
   **Output**
    Returns the new created `cluster-id`."
   [options]
@@ -42,7 +42,7 @@
       impl/request!))
 
 (defn edit-cluster!
-  "Edit a specif cluster within a Databricks Account
+  "Edit a specific cluster within a Databricks Account
    **Input**
    Must have at least [token timeout host context]
    - `:token` your databricks token to use the API
@@ -63,7 +63,7 @@
       impl/request!))
 
 (defn start-cluster!
-  "Start a specif cluster within a Databricks Account
+  "Start a specific cluster within a Databricks Account
    **Input**
    Must have at least [token timeout host context]
    - `:token` your databricks token to use the API
