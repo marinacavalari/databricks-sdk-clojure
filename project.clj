@@ -6,4 +6,4 @@
   :dependencies [[org.clojure/clojure "1.10.3"]
                  [http-kit "2.5.3"]
                  [org.clojure/data.json "2.2.1"]]
-  :repl-options {:init-ns databricks-sdk-clojure.main})
+  :repl-options {:init-ns databricks-sdk.core})
