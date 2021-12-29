@@ -6,7 +6,7 @@ This library is a way to do a easier access to the Databricks API 2.0 and its fu
 ## Installation
 
 ```clojure
-:dependencies [[com.github.marinacavalari/databricks-sdk "0.1.0-SNAPSHOT"]]
+[com.github.marinacavalari/databricks-sdk "0.1.0-SNAPSHOT"]
 ```
 
 ## Usage
