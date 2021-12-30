@@ -40,7 +40,9 @@
   [options]
   (-> options
       (assoc :endpoint :clusters/list)
-      impl/request!))
+      impl/request!
+      :body
+      (json/read-str :key-fn keyword)))
 
 (defn edit-cluster!
   "Edit a specific cluster within a Databricks Account
