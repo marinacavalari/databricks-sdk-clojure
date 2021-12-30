@@ -1,6 +1,7 @@
 (ns databricks-sdk.core
   (:require
-   [databricks-sdk.impl.databricks :as impl]))
+   [databricks-sdk.impl.databricks :as impl]
+   [clojure.data.json :as json]))
 
 (defn create-cluster!
   "Create a new cluster within a Databricks Account
@@ -24,7 +25,9 @@
   [options]
   (-> options
       (assoc :endpoint :clusters/list)
-      impl/request!))
+      impl/request!
+      :body
+      (json/read-str :key-fn keyword)))
 
 (defn list-clusters
   "List all clusters from a databrick account.
@@ -59,11 +62,12 @@
       :num_workers 10}
  ```
   **Output**
-   {}"
+   {:status 200}"
   [options]
   (-> options
       (assoc :endpoint :clusters/edit)
-      impl/request!))
+      impl/request!
+      :status))
 
 (defn start-cluster!
   "Start a specific cluster within a Databricks Account
@@ -77,11 +81,13 @@
      {:cluster_id '1x2e34r5t'}
  ```
   **Output**
-   {}"
+   {:status 200}"
   [options]
   (-> options
       (assoc :endpoint :clusters/start)
-      impl/request!))
+      impl/request!
+      :status))
+      
 
 
 

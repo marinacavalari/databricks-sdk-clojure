@@ -1,6 +1,5 @@
 (ns databricks-sdk.impl.databricks
   (:require
-   [clojure.data.json :as json]
    [databricks-sdk.impl.endpoints :as endpoints]
    [org.httpkit.client :as http]))
 
