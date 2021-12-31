@@ -17,10 +17,7 @@
   (let [request (-> options
                     request-raw
                     (select-keys [:body :status :error]))
-        error   (:error request)
-        status  (:status request)]
+        error   (:error request)]
     (if error
       (str error)
       request)))
-
-

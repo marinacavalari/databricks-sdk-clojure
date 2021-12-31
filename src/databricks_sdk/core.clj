@@ -1,7 +1,7 @@
 (ns databricks-sdk.core
   (:require
-   [databricks-sdk.impl.databricks :as impl]
-   [clojure.data.json :as json]))
+   [clojure.data.json :as json]
+   [databricks-sdk.impl.databricks :as impl]))
 
 
 (defn create-cluster!
@@ -65,10 +65,10 @@
   **Output**
    {:status 200}"
   [options]
-  (-> options
-      (assoc :endpoint :clusters/edit)
-      impl/request!
-      :status))
+  {:status (-> options
+               (assoc :endpoint :clusters/edit)
+               impl/request!
+               :status)})
 
 (defn start-cluster!
   "Start a specific cluster within a Databricks Account
@@ -84,10 +84,10 @@
   **Output**
    {:status 200}"
   [options]
-  (-> options
-      (assoc :endpoint :clusters/start)
-      impl/request!
-      :status))
+  {:status (-> options
+               (assoc :endpoint :clusters/start)
+               impl/request!
+               :status)})
       
 
 
