@@ -1,7 +1,8 @@
 (ns databricks-sdk.impl.databricks
   (:require
    [databricks-sdk.impl.endpoints :as endpoints]
-   [org.httpkit.client :as http]))
+   [org.httpkit.client :as http]
+   [clojure.data.json :as json]))
 
 (defn request-raw [{:keys [token timeout host endpoint context]}]
   (-> {:url (str host (-> endpoints/request endpoint :uri))
@@ -19,5 +20,10 @@
                     (select-keys [:body :status :error]))
         error   (:error request)]
     (if error
-      (str error)
+      {:body (str error)}
       request)))
+
+(comment
+(json/read-str "java.net.UnknownHostException: dbc-82a233e4-f494.cloud.databricks.co: nodename nor servname provided, or not known" :key-fn keyword)
+
+(:body {:body "java.net.UnknownHostException: dbc-82a233e4-f494.cloud.databricks.co: nodename nor servname provided, or not known"}))
