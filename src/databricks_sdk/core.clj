@@ -27,8 +27,7 @@
   (-> options
       (assoc :endpoint :clusters/list)
       impl/request!
-      :body
-      (json/read-str :key-fn keyword)))
+      :body)
 
 (defn list-clusters
   "List all clusters from a databrick account.
@@ -45,8 +44,7 @@
   (-> options
       (assoc :endpoint :clusters/list)
       impl/request!
-      :body
-      (json/read-str :key-fn keyword)))
+      :body))
 
 (defn edit-cluster!
   "Edit a specific cluster within a Databricks Account

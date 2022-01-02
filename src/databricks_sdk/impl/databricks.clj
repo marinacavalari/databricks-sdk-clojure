@@ -24,5 +24,5 @@
         error   (:error request)]
     (if error
       (resolve-error error)
-      request)))
+      (json/read-str request :key-fn keyword))))
 
