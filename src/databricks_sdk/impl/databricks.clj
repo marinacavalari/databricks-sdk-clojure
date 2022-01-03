@@ -2,10 +2,8 @@
   (:require
    [databricks-sdk.impl.endpoints :as endpoints]
    [org.httpkit.client :as http]
-   [clojure.data.json :as json]))
-
-(defn resolve-error [error]
-  {:body {:error (:cause (Throwable->map error))}})
+   [clojure.data.json :as json]
+   [clojure.string :as string]))
 
 (defn request-raw [{:keys [token timeout host endpoint context]}]
   (-> {:url (str host (-> endpoints/request endpoint :uri))
@@ -20,15 +18,15 @@
 (defn request! [options]
   (let [request (-> options
                     request-raw
-                    (select-keys [:body :status :error]))
-        error   (:error request)]
-    (if error
-      (resolve-error error)
-      (json/read-str request :key-fn keyword))))
+                    (select-keys [:body :status :error]))]
+    (cond
+      (:error request)
+      {:error {:code 1
+               :message (-> request :error Throwable->map :cause)}}
+      
+      (string/starts-with? (str (:status request)) "2")
+      {:result [(json/read-str request :key-fn keyword)]}
 
-
-(request-raw {:token (System/getenv "DATABRICKS_STAGING_TOKEN")
-                    :timeout 3
-                    :host "https://dbc-82a233e4-f494.cloud.databricks.com"
-                    :context {}
-                    :endpoint :clusters/list})
+      :else
+      {:error {:code (:status request)
+               :message (:body request)}})))
