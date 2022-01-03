@@ -3,7 +3,6 @@
    [clojure.data.json :as json]
    [databricks-sdk.impl.databricks :as impl]))
 
-
 (defn create-cluster!
   "Create a new cluster within a Databricks Account
    **Input**
@@ -27,7 +26,7 @@
   (-> options
       (assoc :endpoint :clusters/list)
       impl/request!
-      :body)
+      :body))
 
 (defn list-clusters
   "List all clusters from a databrick account.
@@ -86,7 +85,3 @@
                (assoc :endpoint :clusters/start)
                impl/request!
                :status)})
-      
-
-
-

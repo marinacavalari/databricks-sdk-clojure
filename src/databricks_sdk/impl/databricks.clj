@@ -26,3 +26,9 @@
       (resolve-error error)
       (json/read-str request :key-fn keyword))))
 
+
+(request-raw {:token (System/getenv "DATABRICKS_STAGING_TOKEN")
+                    :timeout 3
+                    :host "https://dbc-82a233e4-f494.cloud.databricks.com"
+                    :context {}
+                    :endpoint :clusters/list})
