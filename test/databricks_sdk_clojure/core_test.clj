@@ -35,4 +35,5 @@
                         (sdk/list-clusters {:token "bcfGe428JL09"
                                             :timeout 3
                                             :host "https://example-account.cloud.databricks.com"
-                                            :context {}}))))))
+                                            :context {}})))))
+  (testing "failed, returning the error as edn: Third error - Unauthorized"))
