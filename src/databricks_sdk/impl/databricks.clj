@@ -25,7 +25,7 @@
                :message (-> request :error Throwable->map :cause)}}
       
       (string/starts-with? (str (:status request)) "2")
-      {:result [(json/read-str request :key-fn keyword)]}
+      {:result (json/read-str request :key-fn keyword)}
 
       :else
       {:error {:code (:status request)

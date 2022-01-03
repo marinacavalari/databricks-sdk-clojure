@@ -1,6 +1,5 @@
 (ns databricks-sdk.core
   (:require
-   [clojure.data.json :as json]
    [databricks-sdk.impl.databricks :as impl]))
 
 (defn create-cluster!
@@ -21,12 +20,11 @@
       :num_workers 25}
   ```
   **Output**
-   Returns the new created `cluster-id`."
+   Returns result and the the new created `cluster-id`."
   [options]
   (-> options
       (assoc :endpoint :clusters/list)
-      impl/request!
-      :body))
+      impl/request!))
 
 (defn list-clusters
   "List all clusters from a databrick account.
@@ -38,12 +36,11 @@
     - `:context` is your data to the request, in this case use empty {}
    
    **Output**
-   And its returns is the `clusters` list itself"
+   And its returns is the result and `clusters` list itself"
   [options]
   (-> options
       (assoc :endpoint :clusters/list)
-      impl/request!
-      :body))
+      impl/request!))
 
 (defn edit-cluster!
   "Edit a specific cluster within a Databricks Account
@@ -60,12 +57,12 @@
       :num_workers 10}
  ```
   **Output**
-   {:status 200}"
+   
+   {:result {:body \"cluster_id\"}}"
   [options]
-  {:status (-> options
-               (assoc :endpoint :clusters/edit)
-               impl/request!
-               :status)})
+  (-> options
+      (assoc :endpoint :clusters/edit)
+      impl/request!))
 
 (defn start-cluster!
   "Start a specific cluster within a Databricks Account
@@ -79,9 +76,8 @@
      {:cluster_id '1x2e34r5t'}
  ```
   **Output**
-   {:status 200}"
+   {:result {:body \"<cluster_id>\"}}"
   [options]
-  {:status (-> options
-               (assoc :endpoint :clusters/start)
-               impl/request!
-               :status)})
+  (-> options
+      (assoc :endpoint :clusters/start)
+      impl/request!))
