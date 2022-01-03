@@ -16,17 +16,15 @@
       deref))
 
 (defn request! [options]
-  (let [request (-> options
-                    request-raw
-                    (select-keys [:body :status :error]))]
+  (let [{:keys [error status body]} (request-raw  options)]
     (cond
-      (:error request)
+      error
       {:error {:code 1
-               :message (-> request :error Throwable->map :cause)}}
+               :message (-> error Throwable->map :cause)}}
       
-      (string/starts-with? (str (:status request)) "2")
-      {:result (json/read-str request :key-fn keyword)}
+      (string/starts-with? (str status) "2")
+      {:result (json/read-str body :key-fn keyword)}
 
       :else
-      {:error {:code (:status request)
-               :message (:body request)}})))
+      {:error {:code status
+               :message body}})))

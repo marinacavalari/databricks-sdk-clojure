@@ -12,13 +12,15 @@
 (deftest list-clusters-list
   (testing "success, returning the request's body"
     (with-redefs [http/request success-cluster-list-response]
-      (is (= {:clusters [{:cluster_id "123"}]}(sdk/list-clusters {:token "bcfGe428JL09"
-                                                                  :timeout 30000
-                                                                  :host "https://example-account.cloud.databricks.com"
-                                                                  :context {}})))))
+      (is (= {:result {:clusters [{:cluster_id "123"}]}}
+             (sdk/list-clusters {:token "bcfGe428JL09"
+                                 :timeout 30000
+                                 :host "https://example-account.cloud.databricks.com"
+                                 :context {}})))))
   
   (testing "failed, returning the error as edn: First error - Host not known"
-    (is (= {:error "example-account.cloud.databricks.com: nodename nor servname provided, or not known"}
+    (is (= {:error {:code 1
+                    :message "example-account.cloud.databricks.com: nodename nor servname provided, or not known"}}
            (sdk/list-clusters {:token "bcfGe428JL09"
                                :timeout 30000
                                :host "https://example-account.cloud.databricks.com"
