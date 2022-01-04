@@ -16,7 +16,7 @@
       deref))
 
 (defn request! [options]
-  (let [{:keys [error status body]} (request-raw  options)]
+  (let [{:keys [error status body]} (request-raw options)]
     (cond
       error
       {:error {:code 1
