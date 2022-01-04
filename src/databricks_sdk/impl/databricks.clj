@@ -1,9 +1,9 @@
 (ns databricks-sdk.impl.databricks
   (:require
-   [databricks-sdk.impl.endpoints :as endpoints]
-   [org.httpkit.client :as http]
    [clojure.data.json :as json]
-   [clojure.string :as string]))
+   [clojure.string :as string]
+   [databricks-sdk.impl.endpoints :as endpoints]
+   [org.httpkit.client :as http]))
 
 (defn request-raw [{:keys [token timeout host endpoint context]}]
   (-> {:url (str host (-> endpoints/request endpoint :uri))
