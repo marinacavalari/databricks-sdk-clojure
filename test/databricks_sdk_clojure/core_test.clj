@@ -39,4 +39,3 @@
                                 :timeout 30000
                                 :host "https://example-account.cloud.databricks.com"
                                 :context {}}))))))
-                            
