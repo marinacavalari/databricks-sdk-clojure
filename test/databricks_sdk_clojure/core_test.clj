@@ -97,14 +97,14 @@
   (testing "success, returning the request's body, in this case, the started cluster id"
     (with-redefs [http/request success-cluster-response]
       (is (= {:result {:cluster_id "123"}}
-             (sdk/create-cluster! {:token "bcfGe428JL09"
+             (sdk/start-cluster! {:token "bcfGe428JL09"
                                    :timeout 30000
                                    :host "https://example-account.cloud.databricks.com"
                                    :context {}})))))
   (testing "failed, uknown status error"
     (is (= {:error {:code 1
                     :message "example-account.cloud.databricks.com: nodename nor servname provided, or not known"}}
-           (sdk/create-cluster! {:token "bcfGe428JL09"
+           (sdk/start-cluster! {:token "bcfGe428JL09"
                                  :timeout 30000
                                  :host "https://example-account.cloud.databricks.com"
                                  :context {}}))))
@@ -112,7 +112,31 @@
     (with-redefs [http/request failed-response]
       (is (= {:error {:code 429
                       :message  "Too many requests"}}
-             (sdk/create-cluster! {:token "bcfGe428JL09"
+             (sdk/start-cluster! {:token "bcfGe428JL09"
+                                   :timeout 30000
+                                   :host "https://example-account.cloud.databricks.com"
+                                   :context {}}))))))
+
+(deftest terminate-cluster-test
+  (testing "success, returning the request's body, in this case, the terminated cluster id"
+    (with-redefs [http/request success-cluster-response]
+      (is (= {:result {:cluster_id "123"}}
+             (sdk/terminate-cluster! {:token "bcfGe428JL09"
+                                   :timeout 30000
+                                   :host "https://example-account.cloud.databricks.com"
+                                   :context {}})))))
+  (testing "failed, uknown status error"
+    (is (= {:error {:code 1
+                    :message "example-account.cloud.databricks.com: nodename nor servname provided, or not known"}}
+           (sdk/terminate-cluster! {:token "bcfGe428JL09"
+                                 :timeout 30000
+                                 :host "https://example-account.cloud.databricks.com"
+                                 :context {}}))))
+  (testing "failed, known status error"
+    (with-redefs [http/request failed-response]
+      (is (= {:error {:code 429
+                      :message  "Too many requests"}}
+             (sdk/terminate-cluster! {:token "bcfGe428JL09"
                                    :timeout 30000
                                    :host "https://example-account.cloud.databricks.com"
                                    :context {}}))))))
