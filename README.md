@@ -1,3 +1,5 @@
+[![Clojars Project](https://img.shields.io/clojars/v/org.clojars.marinacavalari/databricks-sdk.svg)](https://clojars.org/org.clojars.marinacavalari/databricks-sdk)
+
 # Databricks-SDK
 
 A Clojure SDK for Databricks usage, with most used functions.
@@ -6,7 +8,7 @@ This library is a way to do a easier access to the Databricks API 2.0 and its fu
 ## Installation
 
 ```clojure
-[com.github.marinacavalari/databricks-sdk "0.1.0-SNAPSHOT"]
+[org.clojars.marinacavalari/databricks-sdk "0.1.2"]
 ```
 
 ## Usage
