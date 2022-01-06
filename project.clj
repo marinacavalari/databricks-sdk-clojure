@@ -1,4 +1,4 @@
-(defproject org.clojars.marinacavalari/databricks-sdk "0.1.2"
+(defproject org.clojars.marinacavalari/databricks-sdk "0.1.3"
   :description "SDK to use databricks functions easier in Clojure"
   :url "https://github.com/marinacavalari/databricks-sdk-clojure"
   :license {:name "EPL-2.0 OR GPL-2.0-or-later WITH Classpath-exception-2.0"
