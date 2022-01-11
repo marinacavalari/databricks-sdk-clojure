@@ -5,11 +5,11 @@
 (defn create-cluster!
   "Create a new cluster within a Databricks Account
    **Input**
-   Must have at least [token timeout host context]
+   Must have at least [token timeout host body]
    - `:token` your databricks token to use the API
    - `:timeout` the time limit in milliseconds to wait for the response.
    - `:host` your account host, e.g. `http://abc.cloud.databricks.com`
-   - `:context` is your data to the request, in this case use a cluster information, as below:
+   - `:body` is your data to the request, in this case use a cluster information, as below:
   ```clojure
      {:cluster_name \"my-cluster\"
       :spark_version \"7.3.x-scala2.12\"
@@ -32,11 +32,11 @@
 (defn list-clusters
   "List all clusters from a databrick account.
    **Input**
-    Must have at least [token timeout host context]
+    Must have at least [token timeout host body]
     - `:token` your databricks token to use the API
     - `:timeout` the time limit in milliseconds to wait for the response.
     - `:host` your account host, e.g. `http://abc.cloud.databricks.com`
-    - `:context` is your data to the request, in this case use empty {}
+    - `:body` is your data to the request, in this case use empty {}
    
    **Output**
    
@@ -51,11 +51,11 @@
 (defn edit-cluster!
   "Edit a specific cluster within a Databricks Account
    **Input**
-   Must have at least [token timeout host context]
+   Must have at least [token timeout host body]
    - `:token` your databricks token to use the API
    - `:timeout` the time limit in milliseconds to wait for the response.
    - `:host` your account host, e.g. `http://abc.cloud.databricks.com`
-   - `:context` is your data to the request, in this case use a cluster information, as below:
+   - `:body` is your data to the request, in this case use a cluster information, as below:
   ```clojure
      {:cluster_id \"1x2e34r5t\"
       :spark_version \"7.3.x-scala2.12\"
@@ -75,11 +75,11 @@
 (defn start-cluster!
   "Start a specific cluster within a Databricks Account
    **Input**
-   Must have at least [token timeout host context]
+   Must have at least [token timeout host body]
    - `:token` your databricks token to use the API
    - `:timeout` the time limit in milliseconds to wait for the response.
    - `:host` your account host, e.g. `http://abc.cloud.databricks.com`
-   - `:context` is your data to the request, in this case use a cluster id information, as below:
+   - `:body` is your data to the request, in this case use a cluster id information, as below:
   ```clojure
      {:cluster_id \"1x2e34r5t\"}
  ```
@@ -96,11 +96,11 @@
 (defn terminate-cluster!
   "Terminate a specific cluster within a Databricks Account
    **Input**
-   Must have at least [token timeout host context]
+   Must have at least [token timeout host body]
    - `:token` your databricks token to use the API
    - `:timeout` the time limit in milliseconds to wait for the response.
    - `:host` your account host, e.g. `http://abc.cloud.databricks.com`
-   - `:context` is your data to the request, in this case use a cluster id information, as below:
+   - `:body` is your data to the request, in this case use a cluster id information, as below:
   ```clojure
      {:cluster_id \"1x2e34r5t\"}
  ```
@@ -112,4 +112,29 @@
   [options]
   (-> options
       (assoc :endpoint :clusters/terminate)
+      impl/request!))
+
+(defn grant-cluster-permission!
+  "Grant cluster permissions for one or more users, groups, or service principals.
+   This request only grants (adds) permissions. To revoke, use the replace all cluster permissions function.
+   **Input**
+   Must have at least [token timeout host body]
+   - `:token` your databricks token to use the API
+   - `:timeout` the time limit in milliseconds to wait for the response.
+   - `:host` your account host, e.g. `http://abc.cloud.databricks.com`
+   - `:body` is your data to the request, in this case use a new permission to a specific usr or group, as below:
+  ```clojure
+     {:access_control_list [{:user_name \"jsmith@example.com\"
+                             :permission_level \"CAN_RESTART\"}]}
+ ```
+   **Output**
+   
+  ```clojure 
+    {:result {:object_id \"/clusters/0712-200003-rail519\"
+              :object_type \"cluster\"}
+              :access_control_list []}
+  ``` "
+  [options]
+  (-> options
+      (assoc :endpoint :clusters/permissions)
       impl/request!))
