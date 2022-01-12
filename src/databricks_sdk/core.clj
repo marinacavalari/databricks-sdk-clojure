@@ -180,3 +180,28 @@
   (-> options
       (assoc :endpoint :libraries/install)
       impl/request!))
+
+(defn status-cluster-library
+  "Get the status of libraries on a cluster. 
+   A status will be available for all libraries installed on the cluster via the API or the libraries UI as well as libraries set to be installed on all clusters via the libraries UI.
+   **Input**
+   Must have at least [token timeout host body]
+   - `:token` your databricks token to use the API
+   - `:timeout` the time limit in milliseconds to wait for the response.
+   - `:host` your account host, e.g. `http://abc.cloud.databricks.com`
+   - `:body` is your data to the request, in this case use empty {}
+   **Output**
+   
+  ```clojure 
+    {:cluster_id \"1x2e34r5t\"
+      :library_statuses [{:library {:jar \"dbfs:/mnt/libraries/library.jar\"}
+                          :status \"INSTALLED\"
+                          :messages []
+                          :is_library_for_all_clusters false}]}
+  ``` "
+  [options]
+  {:pre [(check-auth options)
+         (:body options)]}
+  (-> options
+      (assoc :endpoint :libraries/status)
+      impl/request!))
