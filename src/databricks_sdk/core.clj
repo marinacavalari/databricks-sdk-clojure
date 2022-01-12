@@ -2,6 +2,11 @@
   (:require
    [databricks-sdk.impl.databricks :as impl]))
 
+(defn ^:private check-auth [options]
+  (and (:token options)
+       (:host options)
+       (:timeout options)))
+
 (defn create-cluster!
   "Create a new cluster within a Databricks Account
    **Input**
@@ -25,6 +30,8 @@
       {:result {:cluster_id \"123\"}}
    ``` "
   [options]
+  {:pre [(check-auth options)
+         (:body options)]}
   (-> options
       (assoc :endpoint :clusters/list)
       impl/request!))
@@ -44,6 +51,8 @@
       {:result {:clusters [{:cluster_id \"123\"}]}}
    ``` "
   [options]
+  {:pre [(check-auth options)
+         (:body options)]}
   (-> options
       (assoc :endpoint :clusters/list)
       impl/request!))
@@ -68,6 +77,8 @@
     {:result {:cluster_id \"123\"}}
   ``` "
   [options]
+  {:pre [(check-auth options)
+         (:body options)]}
   (-> options
       (assoc :endpoint :clusters/edit)
       impl/request!))
@@ -89,6 +100,8 @@
      {:result {:cluster_id \"123\"}}
   ``` "
   [options]
+  {:pre [(check-auth options)
+         (-> options :body :cluster_id string?)]}
   (-> options
       (assoc :endpoint :clusters/start)
       impl/request!))
@@ -110,6 +123,8 @@
     {:result {:cluster_id \"123\"}}
   ``` "
   [options]
+  {:pre [(check-auth options)
+         (-> options :body :cluster_id string?)]}
   (-> options
       (assoc :endpoint :clusters/terminate)
       impl/request!))
@@ -135,6 +150,8 @@
               :access_control_list []}
   ``` "
   [options]
+  {:pre [(check-auth options)
+         (:body options)]}
   (-> options
       (assoc :endpoint :clusters/permissions)
       impl/request!))
@@ -158,7 +175,8 @@
     {:to-do}
   ``` "
   [options]
-  (start-cluster! options)
+  {:pre [(check-auth options)
+         (:body options)]}
   (-> options
       (assoc :endpoint :libraries/install)
       impl/request!))
