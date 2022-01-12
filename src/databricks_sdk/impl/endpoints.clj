@@ -23,7 +23,7 @@
                                 :query-params [:cluster-id]}
    :scim/users                 {:method :get
                                 :uri    "/api/2.0/preview/scim/v2/Users"}
-   :scim/get-user-id           {:method :get
+   :scim/get-user              {:method :get
                                 :uri    "/api/2.0/preview/scim/v2/Users?filter=userName+eq+%s"
                                 :query-params [:email]}
    :scim/remove-role-from-user {:method :patch

@@ -15,6 +15,7 @@
    - `:timeout` the time limit in milliseconds to wait for the response.
    - `:host` your account host, e.g. `http://abc.cloud.databricks.com`
    - `:body` is your data to the request, in this case use a cluster information, as below:
+
   ```clojure
      {:cluster_name \"my-cluster\"
       :spark_version \"7.3.x-scala2.12\"
@@ -65,6 +66,7 @@
    - `:timeout` the time limit in milliseconds to wait for the response.
    - `:host` your account host, e.g. `http://abc.cloud.databricks.com`
    - `:body` is your data to the request, in this case use a cluster information, as below:
+
   ```clojure
      {:cluster_id \"1x2e34r5t\"
       :spark_version \"7.3.x-scala2.12\"
@@ -91,6 +93,7 @@
    - `:timeout` the time limit in milliseconds to wait for the response.
    - `:host` your account host, e.g. `http://abc.cloud.databricks.com`
    - `:body` is your data to the request, in this case use a cluster id information, as below:
+
   ```clojure
      {:cluster_id \"1x2e34r5t\"}
  ```
@@ -114,6 +117,7 @@
    - `:timeout` the time limit in milliseconds to wait for the response.
    - `:host` your account host, e.g. `http://abc.cloud.databricks.com`
    - `:body` is your data to the request, in this case use a cluster id information, as below:
+
   ```clojure
      {:cluster_id \"1x2e34r5t\"}
  ```
@@ -137,9 +141,11 @@
    - `:token` your databricks token to use the API
    - `:timeout` the time limit in milliseconds to wait for the response.
    - `:host` your account host, e.g. `http://abc.cloud.databricks.com`
-   - `:body` is your data to the request, in this case use a new permission to a specific usr or group, as below:
+   - `:body` is your data to the request, in this case use a new permission to a specific user or group, as below:
+
   ```clojure
-     {:access_control_list [{:user_name \"jsmith@example.com\"
+     {:cluster_id \"1x2e34r5t\"
+      :access_control_list [{:user_name \"jsmith@example.com\"
                              :permission_level \"CAN_RESTART\"}]}
  ```
    **Output**
@@ -165,6 +171,7 @@
    - `:timeout` the time limit in milliseconds to wait for the response.
    - `:host` your account host, e.g. `http://abc.cloud.databricks.com`
    - `:body` is your data to the request, in this case use the paths for the libs being installed, as below:
+
   ```clojure
      {:cluster_id \"1x2e34r5t\"
       :libraries [{:jar \"dbfs:/mnt/libraries/library.jar\"}]}
@@ -189,7 +196,11 @@
    - `:token` your databricks token to use the API
    - `:timeout` the time limit in milliseconds to wait for the response.
    - `:host` your account host, e.g. `http://abc.cloud.databricks.com`
-   - `:body` is your data to the request, in this case use empty {}
+   - `:body` is your data to the request, in this case use the cluster id as below:
+
+   ```clojure 
+    {:cluster_id \"1x2e34r5t\"}
+  ```
    **Output**
    
   ```clojure 
@@ -201,7 +212,78 @@
   ``` "
   [options]
   {:pre [(check-auth options)
-         (:body options)]}
+         (-> options :body :cluster_id string?)]}
   (-> options
       (assoc :endpoint :libraries/status)
+      impl/request!))
+
+(defn list-users
+  "Retrieve a list of all users in the Databricks workspace.
+   **Input**
+   Must have at least [token timeout host body]
+   - `:token` your databricks token to use the API
+   - `:timeout` the time limit in milliseconds to wait for the response.
+   - `:host` your account host, e.g. `http://abc.cloud.databricks.com`
+   - `:body` is your data to the request, in this case use empty {}
+   **Output**
+   
+  ```clojure 
+    {:to-do}
+  ``` "
+  [options]
+  {:pre [(check-auth options)
+         (:body options)]}
+  (-> options
+      (assoc :endpoint :scim/users)
+      impl/request!))
+
+(defn filter-user-by-user-name
+  "Retrieve one single user by their username in the Databricks workspace.
+   **Input**
+   Must have at least [token timeout host body]
+   - `:token` your databricks token to use the API
+   - `:timeout` the time limit in milliseconds to wait for the response.
+   - `:host` your account host, e.g. `http://abc.cloud.databricks.com`
+   - `:body` is your data to the request, in this case use the body as below:
+
+   ```clojure 
+    {:email \"example@example.com\"}
+  ```
+   **Output**
+   
+  ```clojure 
+    {:to-do}
+  ``` "
+  [options]
+  {:pre [(check-auth options)
+         (-> options :body :email string?)]}
+  (-> options
+      (assoc :endpoint  :scim/get-user)
+      impl/request!))
+
+(defn remove-role-from-user!
+  "Remove a specif permission to a specifc user
+   **Input**
+   Must have at least [token timeout host body]
+   - `:token` your databricks token to use the API
+   - `:timeout` the time limit in milliseconds to wait for the response.
+   - `:host` your account host, e.g. `http://abc.cloud.databricks.com`
+   - `:body` is your data to the request, in this case use the body as below:
+
+   ```clojure 
+    {:databricks-user-id 1234567899
+     :schemas {\"urn:ietf:params:scim:api:messages:2.0:PatchOp\"}
+     :Operations [{:op \"remove\"
+                   :path \"roles[value eq \"arn:aws:iam::123456789012:role/my-role\"]}]}
+  ```
+   **Output**
+   
+  ```clojure 
+    {:to-do}
+  ``` "
+  [options]
+  {:pre [(check-auth options)
+         (:body options)]}
+  (-> options
+      (assoc :endpoint  :scim/remove-role-from-user)
       impl/request!))
