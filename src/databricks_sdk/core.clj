@@ -138,3 +138,27 @@
   (-> options
       (assoc :endpoint :clusters/permissions)
       impl/request!))
+
+(defn install-cluster-library!
+  "Install libraries on a cluster. The installation is asynchronous - it completes in the background after the request.
+   The installation only happens when the cluster is running.
+   **Input**
+   Must have at least [token timeout host body]
+   - `:token` your databricks token to use the API
+   - `:timeout` the time limit in milliseconds to wait for the response.
+   - `:host` your account host, e.g. `http://abc.cloud.databricks.com`
+   - `:body` is your data to the request, in this case use the paths for the libs being installed, as below:
+  ```clojure
+     {:cluster_id \"1x2e34r5t\"
+      :libraries [{:jar \"dbfs:/mnt/libraries/library.jar\"}]}
+ ```
+   **Output**
+   
+  ```clojure 
+    {:to-do}
+  ``` "
+  [options]
+  (start-cluster! options)
+  (-> options
+      (assoc :endpoint :libraries/install)
+      impl/request!))
