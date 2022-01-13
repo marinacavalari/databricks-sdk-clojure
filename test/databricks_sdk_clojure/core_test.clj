@@ -14,6 +14,19 @@
     {:body "{\"cluster_id\":\"123\"}"
      :status 200}))
 
+(defn success-cluster-events-response [test-function]
+  (future
+    {:body "{\"events\" [{{\"cluster_id\":\"123\"}
+                           \"timestamp\" 1642016862695
+                           \"type\" \"DRIVER_HEALTHY\"
+                           \"details\" {\"\"}}]
+            \"next_page\" {\"cluster_id\" \"1001-200146-blimp4\"
+                           \"end_time\" 1642016862695
+                           \"offset\" 1
+                           \"limit\" 1}
+           \"total_count\" 2283}"
+     :status 200}))
+
 (defn failed-response [test-function]
   (future
     {:body "Too many requests"
@@ -74,24 +87,24 @@
     (with-redefs [http/request success-cluster-response]
       (is (= {:result {:cluster_id "123"}}
              (sdk/create-cluster! {:token "bcfGe428JL09"
-                                 :timeout 30000
-                                 :host "https://example-account.cloud.databricks.com"
-                                 :body {}})))))
+                                   :timeout 30000
+                                   :host "https://example-account.cloud.databricks.com"
+                                   :body {}})))))
   (testing "failed, uknown status error"
     (is (= {:error {:code 1
                     :message "example-account.cloud.databricks.com: nodename nor servname provided, or not known"}}
            (sdk/create-cluster! {:token "bcfGe428JL09"
-                               :timeout 30000
-                               :host "https://example-account.cloud.databricks.com"
-                               :body {}}))))
+                                 :timeout 30000
+                                 :host "https://example-account.cloud.databricks.com"
+                                 :body {}}))))
   (testing "failed, known status error"
     (with-redefs [http/request failed-response]
       (is (= {:error {:code 429
                       :message  "Too many requests"}}
              (sdk/create-cluster! {:token "bcfGe428JL09"
-                                 :timeout 30000
-                                 :host "https://example-account.cloud.databricks.com"
-                                 :body {}}))))))
+                                   :timeout 30000
+                                   :host "https://example-account.cloud.databricks.com"
+                                   :body {}}))))))
 
 (deftest start-cluster-test
   (testing "success, returning the request's body, in this case, the started cluster id"
@@ -124,14 +137,14 @@
              (sdk/terminate-cluster! {:token "bcfGe428JL09"
                                    :timeout 30000
                                    :host "https://example-account.cloud.databricks.com"
-                                   :body {}})))))
+                                   :body {:cluster_id "123"}})))))
   (testing "failed, uknown status error"
     (is (= {:error {:code 1
                     :message "example-account.cloud.databricks.com: nodename nor servname provided, or not known"}}
            (sdk/terminate-cluster! {:token "bcfGe428JL09"
                                  :timeout 30000
                                  :host "https://example-account.cloud.databricks.com"
-                                 :body {}}))))
+                                 :body {:cluster_id "123"}}))))
   (testing "failed, known status error"
     (with-redefs [http/request failed-response]
       (is (= {:error {:code 429
@@ -139,4 +152,40 @@
              (sdk/terminate-cluster! {:token "bcfGe428JL09"
                                    :timeout 30000
                                    :host "https://example-account.cloud.databricks.com"
-                                   :body {}}))))))
+                                   :body {:cluster_id "123"}}))))))
+
+(deftest clusters-events-test
+  (testing "success, returning the request's body, in this case, the events from a cluster"
+    (with-redefs [http/request success-cluster-events-response]
+      (is (= {:result {:events [{:cluster_id "123"
+                                 :timestamp 1642016862695
+                                 :type "DRIVER_HEALTHY"
+                                 :details {}}]
+                       :next_page {:cluster_id "123"
+                                   :end_time 1642016862695
+                                   :offset 1
+                                   :limit 1}
+                       :total_count 2283}}
+             (sdk/clusters-events {:token "bcfGe428JL09"
+                                   :timeout 30000
+                                   :host "https://example-account.cloud.databricks.com"
+                                   :body {:cluster_id "123"
+                                          :limit 5}})))))
+  (testing "failed, uknown status error"
+    (is (= {:error {:code 1
+                    :message "example-account.cloud.databricks.com: nodename nor servname provided, or not known"}}
+           (sdk/clusters-events {:token "bcfGe428JL09"
+                                    :timeout 30000
+                                    :host "https://example-account.cloud.databricks.com"
+                                    :body {:cluster_id "123"
+                                           :limit 5}}))))
+  (testing "failed, known status error"
+    (with-redefs [http/request failed-response]
+      (is (= {:error {:code 429
+                      :message  "Too many requests"}}
+             (sdk/clusters-events    {:token "bcfGe428JL09"
+                                      :timeout 30000
+                                      :host "https://example-account.cloud.databricks.com"
+                                      :body {:cluster_id "123"
+                                             :limit 5}}))))))
+ 
