@@ -16,6 +16,8 @@
    :clusters/permissions       {:method :patch
                                 :uri    "/api/2.0/permissions/clusters/%s"
                                 :query-params [:cluster-id]}
+   :clusters/events            {:method :post
+                                :uri    "/api/2.0/clusters/events"}
    :libraries/install          {:method :post
                                 :uri    "/api/2.0/libraries/install"}
    :libraries/status           {:method :get
@@ -30,3 +32,4 @@
                                 :uri    "/api/2.0/preview/scim/v2/Users/%"
                                 :query-params [:databricks-user-id]}})
               
+

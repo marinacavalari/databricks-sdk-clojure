@@ -37,6 +37,45 @@
       (assoc :endpoint :clusters/list)
       impl/request!))
 
+(defn clusters-events
+  "Retrieve a list of events about the activity of a cluster. 
+   You can retrieve events from active clusters (running, pending, or reconfiguring) and terminated clusters.
+   **Input**
+   Must have at least [token timeout host body]
+   - `:token` your databricks token to use the API
+   - `:timeout` the time limit in milliseconds to wait for the response.
+   - `:host` your account host, e.g. `http://abc.cloud.databricks.com`
+   - `:body` is your data to the request, in this case use a cluster information, as below:
+
+  ```clojure
+     {:cluster_id \"1x2e34r5t\"
+      :start_time 1617238800000
+      :end_time 1619485200000
+      :order \"DESC\" \"(If empty, default is DESC)\"
+      :offset 10
+      :limit 25}
+  ```
+  **Output**
+   
+   ```clojure 
+      {:result {:events [{:cluster_id \"1x2e34r5t\", 
+                    :timestamp 1642016862695, 
+                    :type \"DRIVER_HEALTHY\", 
+                    :details {}}], 
+          :next_page {:cluster_id \"1x2e34r5t\", 
+                      :end_time 1642016862695, 
+                      :offset 1, 
+                      :limit 1}, 
+          :total_count 2283}}
+   ``` "
+  [options]
+  {:pre [(check-auth options)
+         (:body options)]}
+  (-> options
+      (assoc :endpoint :clusters/events)
+      impl/request!))
+
+
 (defn list-clusters
   "List all clusters from a databrick account.
    **Input**
@@ -104,7 +143,7 @@
   ``` "
   [options]
   {:pre [(check-auth options)
-         (-> options :body :cluster_id string?)]}
+         (:body options)]}
   (-> options
       (assoc :endpoint :clusters/start)
       impl/request!))
