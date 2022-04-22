@@ -29,7 +29,9 @@
                                 :uri    "/api/2.0/preview/scim/v2/Users?filter=userName+eq+%s"
                                 :query-params [:email]}
    :scim/remove-role-from-user {:method :patch
-                                :uri    "/api/2.0/preview/scim/v2/Users/%"
-                                :query-params [:databricks-user-id]}})
-              
-
+                                :uri    "/api/2.0/preview/scim/v2/Users/%s"
+                                :query-params [:databricks-user-id]}
+   :accounts/credentials        {:method :get
+                                 :uri "/api/2.0/accounts/%s/credentials"}
+   :accounts/create-credentials-config {:method :post
+                                        :uri "api/2.0/accounts/%s/credentials"}})

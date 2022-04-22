@@ -1,6 +1,7 @@
 (ns databricks-sdk.core
   (:require
-   [databricks-sdk.impl.databricks :as impl]))
+   [databricks-sdk.impl.databricks :as impl]
+   [clojure.string :as string]))
 
 (defn ^:private check-auth [options]
   (and (:token options)
@@ -325,4 +326,23 @@
          (:body options)]}
   (-> options
       (assoc :endpoint  :scim/remove-role-from-user)
+      impl/request!))
+
+(defn get-all-credentials!
+  [options]
+  {:pre [(check-auth options)
+         (:body options)]}
+  (-> options
+      (assoc :endpoint :accounts/credentials)
+      impl/request!))
+
+(defn create-credential-config!
+  [options]
+  {:pre [(check-auth options)
+         (-> options :body :account_id string?)
+         (-> options :body :credentials_name string?)
+         (-> options :body :aws_credentials :sts_role :role_arn string?)
+         ]}
+  (-> options
+      (assoc :endpoint :accounts/credentials)
       impl/request!))
