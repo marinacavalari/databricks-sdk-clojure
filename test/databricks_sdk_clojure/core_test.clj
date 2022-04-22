@@ -200,9 +200,10 @@
 
 (deftest grant-cluster-permission-test
   (testing "Grant cluster permissions for one or more users, groups, or service principals."
-    (with-redefs [http/request failed-response]
-      (is (= {:error {:code 429
-                      :message  "Too many requests"}}
+    (with-redefs [http/request success-cluster-events-response]
+      (is (= {:result {:object_id "/clusters/0712-200003-rail519"
+                      :object_type  "cluster"
+                       :access_control_list []}}
              (sdk/grant-cluster-permission!    {:cluster-id "1x2e34r5t"
                                                 :access-control-list [:user-name "jsmith @example.com"
                                                                       :permission-level "CAN_RESTART"]}))))))
